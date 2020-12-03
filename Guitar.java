@@ -1,5 +1,3 @@
-package PlayGuitar;
-
 import java.util.List;
 
 public interface Guitar {

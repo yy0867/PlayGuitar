@@ -1,14 +1,13 @@
 //make "pair" utility in c++ to java
-package PlayGuitar;
 
-public class pair<F, S> {
+public class pair <F, S> {
     public pair(F f, S s) {
         first = f;
         second = s;
     }
 
-    //it will be public because
-    //user can easily access to those vars
+    //it sets to public because
+    //user can easily access to vars
     public F first;
     public S second;
 }
