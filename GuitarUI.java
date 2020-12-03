@@ -12,8 +12,8 @@ public class GuitarUI implements Guitar {
         }
         System.out.println();
 
-        for (int i = 0; i < strings; i++) {
-            System.out.print((i + 1) + "(" + Chord.openStrings.get(strings - i - 1).charAt(0) + ")" + " | ");
+        for (int i = 1; i <= strings; i++) {
+            System.out.print(i + "(" + Chord.openStrings.get(strings - i).charAt(0) + ")" + " | ");
             for (int j = 0; j <= fret; j++) {
                 System.out.print("──  ");
             }

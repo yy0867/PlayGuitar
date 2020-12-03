@@ -15,7 +15,7 @@ public class PlaySound extends Thread implements GuitarSound {
 
         Clip clip;
         try {
-            sound = new File("./resources/sounds/" + path + ".wav");
+            sound = new File("src/resources/sounds/" + path + ".wav");
             soundStream = AudioSystem.getAudioInputStream(sound);
 
             format = soundStream.getFormat();

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Chord {
     public Chord(String input) {
+        push = new ArrayList<>();
         setChord(input);
     }
 
