@@ -3,14 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Chord {
-    public Chord(String input) {
-        push = new ArrayList<>();
-        setChord(input);
-    }
-
-    public Chord(String chordName, List<pair<Integer, Integer>> push) {
+    public Chord(String chordName) {
         this.chordName = chordName;
-        this.push = push;
+        setChord(chordName);
     }
 
     @Override //make Chord to String | form -> ChordName StringNum FretNum StringNum FretNum ...
@@ -25,12 +20,19 @@ public class Chord {
     public void setChord(String chordString) {
         chordName = "";
         push.clear();
-        String chordInfo[] = chordString.split(" ");
+        String[] chordInfo = chordString.split(" ");
         chordName = chordInfo[0];
         for (int i = 1; i < chordInfo.length; i += 2) {
             pair<Integer, Integer> info = new pair<>(Integer.parseInt(chordInfo[i]), Integer.parseInt(chordInfo[i]));
             push.add(info);
         }
+    }
+
+    public boolean isPushed(int string, int fret) {
+        for(pair<Integer, Integer> p : push) {
+            if(p.first == string && p.second == fret) return true;
+        }
+        return false;
     }
 
     public String getChordName() { return chordName; }

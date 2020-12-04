@@ -1,12 +1,13 @@
 import javax.sound.sampled.*;
 import java.io.File;
+import java.util.List;
 
 public class PlaySound extends Thread implements GuitarSound {
     public PlaySound(String path) {
         this.path = path;
     }
 
-    @Override
+    @Override //play guitar sound which stored in "path"
     public void playSound(String path) {
         File sound;
         AudioInputStream soundStream;
@@ -15,7 +16,8 @@ public class PlaySound extends Thread implements GuitarSound {
 
         Clip clip;
         try {
-            sound = new File("src/resources/sounds/" + path + ".wav");
+            //open file [resources/sounds/*.wav]
+            sound = new File("./resources/sounds/" + path + ".wav");
             soundStream = AudioSystem.getAudioInputStream(sound);
 
             format = soundStream.getFormat();
@@ -29,10 +31,11 @@ public class PlaySound extends Thread implements GuitarSound {
         }
     }
 
-    @Override
+    @Override //playing sound with Thread for simultaneous
     public void run() {
         playSound(path);
     }
 
     private String path;
+    private List<pair<String, pair<Integer, Integer>>> soundPosition;
 }
