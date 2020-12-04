@@ -1,9 +1,4 @@
-import java.util.List;
-
 public class GuitarUI extends Guitar {
-    public static void clear() {
-        //clear console
-    }
 
     public void printGuitar(Chord chord) {
         System.out.print("       ");
@@ -13,10 +8,10 @@ public class GuitarUI extends Guitar {
         }
         System.out.println();
 
-        for (int i = 1; i <= strings; i++) {
-            System.out.print(i + "(" + Chord.openStrings.get(strings - i).charAt(0) + ")" + " | ");
+        for (int i = 1; i <= string; i++) {
+            System.out.print(i + "(" + openStrings.get(string - i).charAt(0) + ")" + " | ");
             for (int j = 0; j <= fret; j++) {
-                if(chord.isPushed(i, j))
+                if(chord.isPushed(new pair<>(i, j)))
                     System.out.print("─x  ");
                 else
                     System.out.print("──  ");

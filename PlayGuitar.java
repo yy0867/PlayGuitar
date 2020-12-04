@@ -1,34 +1,46 @@
-import javax.swing.*;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class PlayGuitar {
 
     public static void main(String[] args) {
-        //save chords list from file
-        List<Chord> chordList = FileManager.readChordList();
+        //create guitar
+        Guitar myGuitar = new Guitar();
 
-        GuitarUI guitar = new GuitarUI();
+        Consumer<String> notice = s -> System.out.println("Play " + s + " Chord!");
+        Consumer<String> fail = s -> System.out.println("[" + s + "] Chord is not exist!");
+        Predicate<String> quit = s -> s.compareTo("Q") == 0 || s.compareTo("q") == 0;
+        Predicate<String> help = s -> s.compareTo("help") == 0;
+
         Scanner scanner = new Scanner(System.in);
 
-        //user lambda to get chord from chordlist
-        ChordList getList = (input) -> {
-            for (Chord c : chordList) {
-                if(c.getChordName() == input) return c;
-            }
-            return null;
-        };
-
         while(true) {
-            String userChordName = scanner.next();
-            getList.getChord(userChordName);
+            System.out.println("Input chord what you want to play! or 'Q' to exit >> ");
 
-            Chord userChord = getList.getChord(userChordName);
+            String input = scanner.next();
 
-            /*Play Sound*/
-            /*Print Guitar*/
+            if(quit.test(input)) {
+                System.out.println("Exit Program!");
+                return;
+            }
 
-            GuitarUI.clear();
+            while(!myGuitar.isExistChord(input)) {
+                fail.accept(input);
+                System.out.println("Input [help] to show chord list or input chord again >> ");
+                input = scanner.next();
+
+                if(quit.test(input)) {
+                    System.out.println("Exit Program!");
+                    return;
+                }
+                
+                else if(help.test(input))
+                    myGuitar.printChordList();
+            }
+            
+            //누른 그림 넣고
+            //소리 출력
         }
     }
 }
