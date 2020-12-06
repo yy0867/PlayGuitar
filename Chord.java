@@ -9,15 +9,23 @@ public class Chord extends Thread implements PushString {
     }
 
     public String getChordName() { return chordName; }
+    public List<pair<Integer, Integer>> getPushList() { return push; }
     public boolean isPushed(pair<Integer, Integer> p) {
         return PushString.isPushed(p.first, p.second, this.push);
     }
 
     public void playChord() {
         //play sets of position to make chord sound
+        List<Position> positionList = new ReadPosition().readList();
         List<Position> play = new ArrayList<>();
-        for (pair<Integer, Integer> p : push) {
-            play.add(new Position(chordName, p));
+
+        for(pair<Integer, Integer> p : push) {
+            for(Position pos : positionList) {
+                if(pos.getPositionName(p.first, p.second) != null) {
+                    play.add(new Position(pos.getPositionName(p.first, p.second), p));
+                    break;
+                }
+            }
         }
 
         for(Position p : play) {

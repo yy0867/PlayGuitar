@@ -7,6 +7,7 @@ public class PlayGuitar {
     public static void main(String[] args) {
         //create guitar
         Guitar myGuitar = new Guitar();
+        GuitarUI guitarPrinter = new GuitarUI();
 
         Consumer<String> notice = s -> System.out.println("Play " + s + " Chord!");
         Consumer<String> fail = s -> System.out.println("[" + s + "] Chord is not exist!");
@@ -19,27 +20,33 @@ public class PlayGuitar {
             System.out.println("Input chord what you want to play! or 'Q' to exit >> ");
 
             String input = scanner.next();
+            Chord play;
 
             if(quit.test(input)) {
                 System.out.println("Exit Program!");
                 return;
             }
 
-            while(!myGuitar.isExistChord(input)) {
-                fail.accept(input);
-                System.out.println("Input [help] to show chord list or input chord again >> ");
-                input = scanner.next();
+            else if(help.test(input))
+                myGuitar.printChordList();
 
-                if(quit.test(input)) {
-                    System.out.println("Exit Program!");
-                    return;
+            else {
+                while ((play = myGuitar.getChord(input)) == null) {
+                    fail.accept(input);
+                    System.out.println("Input [help] to show chord list or input chord again >> ");
+                    input = scanner.next();
+
+                    if (quit.test(input)) {
+                        System.out.println("Exit Program!");
+                        return;
+                    }
                 }
-                
-                else if(help.test(input))
-                    myGuitar.printChordList();
+                guitarPrinter.printGuitar(play);
+                play.playChord();
             }
-            
-            //누른 그림 넣고
+
+
+
             //소리 출력
         }
     }

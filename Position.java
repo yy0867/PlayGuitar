@@ -7,8 +7,8 @@ public class Position extends Thread implements PushString {
         //if several positions have same sound
         this.sound = sound;
         this.push = push;
-        //need to sort by larger [first]
-        Collections.sort(this.push);
+        //need to sort by larger [first], use lambda
+        push.sort((p, q) -> p.compareTo(q));
     }
 
     public Position(String sound, pair<Integer, Integer> p) {
@@ -41,8 +41,9 @@ public class Position extends Thread implements PushString {
         }
     }
 
-    public boolean isPushed(pair<Integer, Integer> p) {
-        return PushString.isPushed(p.first, p.second, this.push);
+    public String getPositionName(int string, int fret) {
+        if(PushString.isPushed(string, fret, push)) return sound;
+        return null;
     }
 
     @Override //playing sound with Thread for simultaneous

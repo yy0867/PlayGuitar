@@ -7,7 +7,7 @@ public class ReadPosition implements FileManager {
     @Override
     public List<Position> readList() {
         try {
-            FileReader reader = new FileReader(new File("./resources/chords.txt"));
+            FileReader reader = new FileReader(new File("./resources/position.txt"));
             BufferedReader buf = new BufferedReader(reader);
             List<Position> source = new ArrayList<>();
 
@@ -19,7 +19,7 @@ public class ReadPosition implements FileManager {
 
             return source;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("read position list error!" + e.getMessage());
         }
         //fail, return null
         return null;

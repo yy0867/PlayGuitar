@@ -19,7 +19,7 @@ public class ReadChord implements FileManager {
 
             return source;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("read chord list error!" + e.getMessage());
         }
         //fail, return null
         return null;
