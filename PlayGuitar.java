@@ -41,11 +41,12 @@ public class PlayGuitar {
                         return;
                     }
                 }
+                notice.accept(play.getChordName());
                 guitarPrinter.printGuitar(play);
                 play.playChord();
             }
 
-
+            guitarPrinter.clearScreen();
 
             //소리 출력
         }

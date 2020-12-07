@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Guitar {
     public Guitar() {
@@ -11,7 +10,7 @@ public class Guitar {
     public void printChordList() {
         for (int i = 0; i < chordList.size(); i++) {
             System.out.println(chordList.get(i).getChordName() + "   ");
-            if (i != 0 && i % 4 == 0)
+            if((i + 1) % 5 == 0)
                 System.out.println();
         }
     }

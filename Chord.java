@@ -9,7 +9,6 @@ public class Chord extends Thread implements PushString {
     }
 
     public String getChordName() { return chordName; }
-    public List<pair<Integer, Integer>> getPushList() { return push; }
     public boolean isPushed(pair<Integer, Integer> p) {
         return PushString.isPushed(p.first, p.second, this.push);
     }
@@ -34,7 +33,7 @@ public class Chord extends Thread implements PushString {
 
         try {
             //while playing sound, another process should stop
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

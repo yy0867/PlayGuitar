@@ -3,6 +3,11 @@ public class GuitarUI extends Guitar {
         super();
     }
 
+    public void clearScreen() {
+        for(int i = 0; i < 30; i++)
+            System.out.println();
+    }
+
     public void printGuitar(Chord chord) {
         System.out.print("       ");
         for (int i = 0; i <= fret; i++) {
