@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public interface FileManager<T> {
+public interface CodeDataFileReader<T> {
     //read <type> files and change to List<T> forms
     List<T> readList();
 
@@ -14,7 +14,7 @@ public interface FileManager<T> {
         String[] split = input.split(" ");
 
         for (int i = 1; i < split.length; i += 2) {
-            coords.add(new pair<>(  Integer.parseInt(split[i]), Integer.parseInt(split[i + 1])));
+            coords.add(new pair<>(Integer.parseInt(split[i]), Integer.parseInt(split[i + 1])));
         }
 
         return coords;

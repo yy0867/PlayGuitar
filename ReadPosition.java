@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Read position.txt
-public class ReadPosition implements FileManager {
+public class ReadPosition implements CodeDataFileReader {
     @Override
     public List<Position> readList() {
         try {
@@ -14,7 +14,7 @@ public class ReadPosition implements FileManager {
             //reads file by line
             String line;
             while((line = buf.readLine()) != null) {
-                source.add(new Position(FileManager.cutName(line), FileManager.cutCoords(line)));
+                source.add(new Position(CodeDataFileReader.cutName(line), CodeDataFileReader.cutCoords(line)));
             }
 
             return source;

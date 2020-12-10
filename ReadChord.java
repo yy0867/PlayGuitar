@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 //Read chords.txt
-public class ReadChord implements FileManager {
+public class ReadChord implements CodeDataFileReader {
 
     @Override
     public List<Chord> readList() {
@@ -14,7 +14,7 @@ public class ReadChord implements FileManager {
             //reads file by line
             String line;
             while((line = buf.readLine()) != null) {
-                source.add(new Chord(FileManager.cutName(line), FileManager.cutCoords(line)));
+                source.add(new Chord(CodeDataFileReader.cutName(line), CodeDataFileReader.cutCoords(line)));
             }
 
             return source;

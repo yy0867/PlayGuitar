@@ -1,3 +1,4 @@
+import java.awt.desktop.SystemSleepEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +10,14 @@ public class Chord extends Thread implements PushString {
     }
 
     public String getChordName() { return chordName; }
+    public List<pair<Integer, Integer>> getPush() { return push; }
     public boolean isPushed(pair<Integer, Integer> p) {
         return PushString.isPushed(p.first, p.second, this.push);
     }
 
     public void playChord() {
         //play sets of position to make chord sound
-        List<Position> positionList = new ReadPosition().readList();
+        List<Position> positionList = Guitar.getPositionList();
         List<Position> play = new ArrayList<>();
 
         for(pair<Integer, Integer> p : push) {
