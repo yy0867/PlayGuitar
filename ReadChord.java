@@ -7,7 +7,7 @@ public class ReadChord implements CodeDataFileReader {
     @Override
     public List<Chord> readList() {
         try {
-            FileReader reader = new FileReader(new File("./resources/chords.txt"));
+            FileReader reader = new FileReader(new File("src/resources/chords.txt"));
             BufferedReader buf = new BufferedReader(reader);
             List<Chord> source = new ArrayList<>();
 

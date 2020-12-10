@@ -1,4 +1,4 @@
 @FunctionalInterface
 public interface CodeDataFileWriter {
-    boolean writeFile(String write);
+    boolean writeFile(Chord write);
 }

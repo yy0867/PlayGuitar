@@ -11,6 +11,10 @@ public class PlayGuitar {
 
         System.out.print("Input Chord Name [ex. Cm7] >> ");
         chordName = scanner.next();
+        if (Guitar.getChord(chordName) != null) {
+            System.out.println("Chord Already Exist");
+            return null;
+        }
         System.out.print("Input the number of strings what you push [1 ~ 6] >> ");
 
         int n;
@@ -24,7 +28,7 @@ public class PlayGuitar {
         }
 
         System.out.println("Input the [string fret] set");
-        System.out.println("ex\n 1 0 \n2 1 \n4 2 \n5 3 \n6 0 >> ");
+        System.out.println("ex)\n1 0 \n2 1 \n4 2 \n5 3 \n6 0 \n>> ");
         for(int i = 0; i < n; i++) {
             int string = 0, fret = 0;
             try {
@@ -54,7 +58,7 @@ public class PlayGuitar {
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
-            System.out.print("Input chord what you want to play! or 'help' to print chord list, 'Q' to exit >> ");
+            System.out.print("Input chord what you want to play! or 'help' to print chord list, 'add' to add chord, 'Q' to exit >> ");
 
             String input = scanner.next();
             Chord play;
@@ -66,7 +70,10 @@ public class PlayGuitar {
                 myGuitar.printChordList();
             } else if(add.test(input)) {
                 Chord newChord = inputChordInfo();
-                myGuitar.addChord(newChord);
+                if(newChord != null) {
+                    myGuitar.addChord(newChord);
+                    myGuitar.updateChordList();
+                }
             } else {
                 while ((play = myGuitar.getChord(input)) == null) {
                     fail.accept(input);

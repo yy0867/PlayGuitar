@@ -7,11 +7,17 @@ public class Guitar {
         string = 6;
     }
 
+    public void updateChordList() { chordList = new ReadChord().readList(); }
+
     public void printChordList() {
-        for (int i = 0; i < chordList.size(); i++) {
-            System.out.println(chordList.get(i).getChordName() + "   ");
-            if((i + 1) % 5 == 0)
+        String prevName = chordList.get(0).getChordName();
+        System.out.println(prevName);
+        for (int i = 1; i < chordList.size(); i++) {
+            String chordName = chordList.get(i).getChordName();
+            prevName = chordList.get(i - 1).getChordName();
+            if(prevName.charAt(0) != chordName.charAt(0))
                 System.out.println();
+            System.out.println(chordName);
         }
     }
 
@@ -31,12 +37,7 @@ public class Guitar {
             return;
         }
 
-        StringBuilder writeInfo = new StringBuilder(newChord.getChordName());
-        for(pair<Integer, Integer> p : newChord.getPush()) {
-            writeInfo.append(" " + p.first + " " + p.second);
-        }
-
-        boolean writeSuccess = new WriteChord().writeFile(writeInfo.toString());
+        boolean writeSuccess = new WriteChord().writeFile(newChord);
         if(writeSuccess) {
             System.out.println("Chord Add Success!");
         } else {

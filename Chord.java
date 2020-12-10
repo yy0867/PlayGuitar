@@ -15,6 +15,17 @@ public class Chord extends Thread implements PushString {
         return PushString.isPushed(p.first, p.second, this.push);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder(chordName);
+
+        for(pair<Integer, Integer> p : push) {
+            res.append(" " + p.first + " " + p.second);
+        }
+
+        return res.toString();
+    }
+
     public void playChord() {
         //play sets of position to make chord sound
         List<Position> positionList = Guitar.getPositionList();

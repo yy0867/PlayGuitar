@@ -7,7 +7,7 @@ public class ReadPosition implements CodeDataFileReader {
     @Override
     public List<Position> readList() {
         try {
-            FileReader reader = new FileReader(new File("./resources/position.txt"));
+            FileReader reader = new FileReader(new File("src/resources/position.txt"));
             BufferedReader buf = new BufferedReader(reader);
             List<Position> source = new ArrayList<>();
 

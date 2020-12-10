@@ -27,7 +27,7 @@ public class Position extends Thread implements PushString {
         Clip clip;
         try {
             //open file [resources/sounds/*.wav]
-            file = new File("./resources/sounds/" + sound + ".wav");
+            file = new File("src/resources/sounds/" + sound + ".wav");
             soundStream = AudioSystem.getAudioInputStream(file);
 
             format = soundStream.getFormat();
