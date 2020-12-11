@@ -6,13 +6,14 @@ import java.util.List;
 public class ReadPosition implements CodeDataFileReader {
     @Override
     public List<Position> readList() {
+        //read list from position
         try {
-            FileReader reader = new FileReader(new File("src/resources/position.txt"));
+            FileReader reader = new FileReader(new File("./resources/position.txt"));
             BufferedReader buf = new BufferedReader(reader);
             List<Position> source = new ArrayList<>();
 
             //reads file by line
-            String line;
+            String line = "";
             while((line = buf.readLine()) != null) {
                 source.add(new Position(CodeDataFileReader.cutName(line), CodeDataFileReader.cutCoords(line)));
             }

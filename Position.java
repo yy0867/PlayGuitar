@@ -27,12 +27,13 @@ public class Position extends Thread implements PushString {
         Clip clip;
         try {
             //open file [resources/sounds/*.wav]
-            file = new File("src/resources/sounds/" + sound + ".wav");
+            file = new File("./resources/sounds/" + sound + ".wav");
             soundStream = AudioSystem.getAudioInputStream(file);
 
             format = soundStream.getFormat();
             info = new DataLine.Info(Clip.class, format);
 
+            //run "clip" to play sound
             clip = (Clip)AudioSystem.getLine(info);
             clip.open(soundStream);
             clip.start();
@@ -41,7 +42,9 @@ public class Position extends Thread implements PushString {
         }
     }
 
+    //getter
     public String getPositionName(int string, int fret) {
+        //if pushed, return "sound"
         if(PushString.isPushed(string, fret, push)) return sound;
         return null;
     }
@@ -51,6 +54,8 @@ public class Position extends Thread implements PushString {
         playSound();
     }
 
+    //sound matches in positions.txt [ex) E1, C2, Bb1, ...]
     private String sound;
+    //push matches coordinates which can play "sound"
     private List<pair<Integer, Integer>> push;
 }
