@@ -7,22 +7,26 @@ public class Guitar {
         string = 6;
     }
 
+    //refresh chordList
     public void updateChordList() { chordList = new ReadChord().readList(); }
 
+    //when user input "help", this func run
     public void printChordList() {
         String prevName = chordList.get(0).getChordName();
         System.out.println(prevName);
         for (int i = 1; i < chordList.size(); i++) {
             String chordName = chordList.get(i).getChordName();
             prevName = chordList.get(i - 1).getChordName();
+
+            //compare prev and current chord to decide put '\n'
             if(prevName.charAt(0) != chordName.charAt(0))
                 System.out.println();
             System.out.println(chordName);
         }
     }
 
+    //getter
     public static List<Position> getPositionList() { return positionList; }
-
     public static Chord getChord(String s) {
         for(Chord c : chordList) {
             if(c.getChordName().equals(s)) return c;
@@ -30,6 +34,7 @@ public class Guitar {
         return null;
     }
 
+    //add new chord to "chords.txt"
     public void addChord(Chord newChord) {
         //check if chord is exist
         if (Guitar.getChord(newChord.getChordName()) != null) {

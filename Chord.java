@@ -4,18 +4,22 @@ import java.util.List;
 
 public class Chord extends Thread implements PushString {
 
+    //Constructor
     public Chord(String chordName, List<pair<Integer, Integer>> push) {
         this.chordName = chordName;
         this.push = push;
     }
 
+    //getter
     public String getChordName() { return chordName; }
     public List<pair<Integer, Integer>> getPush() { return push; }
+
+    //return push positions when program plays chord
     public boolean isPushed(pair<Integer, Integer> p) {
         return PushString.isPushed(p.first, p.second, this.push);
     }
 
-    @Override
+    @Override   //change chord to string -> [Chord Name] [p1.row] [p1.col] [p2.row] [p2.col] ...
     public String toString() {
         StringBuilder res = new StringBuilder(chordName);
 
@@ -26,11 +30,12 @@ public class Chord extends Thread implements PushString {
         return res.toString();
     }
 
+    //play each position's sound to make chord
     public void playChord() {
-        //play sets of position to make chord sound
-        List<Position> positionList = Guitar.getPositionList();
-        List<Position> play = new ArrayList<>();
+        List<Position> positionList = Guitar.getPositionList(); //get all Guitar's position
+        List<Position> play = new ArrayList<>(); //Contains which position to play
 
+        //put position in [play]
         for(pair<Integer, Integer> p : push) {
             for(Position pos : positionList) {
                 if(pos.getPositionName(p.first, p.second) != null) {
@@ -40,6 +45,7 @@ public class Chord extends Thread implements PushString {
             }
         }
 
+        //play sound file which matches [play] list, with Thread
         for(Position p : play) {
             p.playSound();
         }

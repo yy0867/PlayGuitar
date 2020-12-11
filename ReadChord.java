@@ -6,8 +6,9 @@ public class ReadChord implements CodeDataFileReader {
 
     @Override
     public List<Chord> readList() {
+        //read list from "chords.txt"
         try {
-            FileReader reader = new FileReader(new File("src/resources/chords.txt"));
+            FileReader reader = new FileReader(new File("./resources/chords.txt"));
             BufferedReader buf = new BufferedReader(reader);
             List<Chord> source = new ArrayList<>();
 
@@ -16,6 +17,9 @@ public class ReadChord implements CodeDataFileReader {
             while((line = buf.readLine()) != null) {
                 source.add(new Chord(CodeDataFileReader.cutName(line), CodeDataFileReader.cutCoords(line)));
             }
+
+            //sort required for "help"
+            source.sort((a, b) -> a.getChordName().compareTo(b.getChordName()));
 
             return source;
         } catch (Exception e) {

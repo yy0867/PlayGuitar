@@ -4,14 +4,15 @@ import java.util.function.Predicate;
 
 public class PlayGuitar {
 
+    //When user input "add"
     static Chord inputChordInfo() {
         Scanner scanner = new Scanner(System.in);
         String chordName;
         List<pair<Integer, Integer>> push = new ArrayList<>();
 
         System.out.print("Input Chord Name [ex. Cm7] >> ");
-        chordName = scanner.next();
-        if (Guitar.getChord(chordName) != null) {
+        chordName = scanner.next(); //input new chord name
+        if (Guitar.getChord(chordName) != null) { // if exist
             System.out.println("Chord Already Exist");
             return null;
         }
@@ -23,6 +24,7 @@ public class PlayGuitar {
                 n = scanner.nextInt();
                 break;
             } catch (InputMismatchException e) {
+                //if input is float, string, etc.
                 System.out.print("Please Input Number [1 ~ 6] >> ");
             }
         }
@@ -35,12 +37,14 @@ public class PlayGuitar {
                 string = scanner.nextInt();
                 fret = scanner.nextInt();
             } catch (InputMismatchException e) {
+                //if input is float, string, etc.
                 System.out.print("Input correct number! >> ");
                 i--;
             }
             push.add(new pair(string, fret));
         }
 
+        //make a new chord
         return new Chord(chordName, push);
     }
 
@@ -49,6 +53,7 @@ public class PlayGuitar {
         Guitar myGuitar = new Guitar();
         GuitarUI guitarPrinter = new GuitarUI();
 
+        //user lambda to simplify printouts & compare inputs
         Consumer<String> notice = s -> System.out.println("Play " + s + " Chord!");
         Consumer<String> fail = s -> System.out.println("[" + s + "] Chord is not exist!");
         Predicate<String> quit = s -> s.compareTo("Q") == 0 || s.compareTo("q") == 0;
@@ -61,39 +66,28 @@ public class PlayGuitar {
             System.out.print("Input chord what you want to play! or 'help' to print chord list, 'add' to add chord, 'Q' to exit >> ");
 
             String input = scanner.next();
-            Chord play;
+            Chord play = Guitar.getChord(input);
 
-            if(quit.test(input)) {
+            if (quit.test(input)) { // input -> Q / q
                 System.out.println("Exit Program!");
                 return;
-            } else if(help.test(input)) {
+            } else if (help.test(input)) { // input -> help
                 myGuitar.printChordList();
-            } else if(add.test(input)) {
+            } else if (add.test(input)) { // input -> add
                 Chord newChord = inputChordInfo();
-                if(newChord != null) {
+                if (newChord != null) {
                     myGuitar.addChord(newChord);
                     myGuitar.updateChordList();
                 }
-            } else {
-                while ((play = myGuitar.getChord(input)) == null) {
-                    fail.accept(input);
-                    System.out.println("'help' to show chord list or input chord again, 'Q' to exit >> ");
-                    input = scanner.next();
-
-                    if (quit.test(input)) {
-                        System.out.println("Exit Program!");
-                        return;
-                    }
-                }
-                notice.accept(play.getChordName());
-                guitarPrinter.printGuitar(play);
-                play.playChord();
+            } else if (play == null) { // input matches nothing
+                fail.accept(input);
+                System.out.println("'help' to show chord list or input chord again, 'add' to add chord, 'Q' to exit >> ");
+            } else { //find input in "ChordList"
+                notice.accept(play.getChordName()); // play [input] chord!
+                guitarPrinter.printGuitar(play); //print guitar frame
+                play.playChord(); //play sound
             }
 
-            System.out.println("\n\n");
-            //guitarPrinter.clearScreen();
-
-            //소리 출력
         }
     }
 }
